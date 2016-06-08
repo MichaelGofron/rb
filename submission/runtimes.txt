@@ -1,0 +1,109 @@
+Michael Gofron and Jason Brown, mtg148, jkb930
+
+Algorithm:
+We sort the points by their x-axis value. Then we divide the x-axis by the number of quadrants so that
+points are evenly split among the processors. Each processor computes some number of quadrants based on
+the quadrant/processor ratio. Each processor actually decides what split they take reducing the bottlenecks
+of one processor deciding the split. Each processor computes the sum of euclidean distances for all the points
+in its quadrant and that value is sum reduced to processor 0 and outputted. 
+
+The algorithm seems very scalable because as we increase the number of processors and quadrants, our runtime
+decreases nearly linearly at first. Over time with more processors the scalability seems to decrease. 
+Since each quadrant is accessed by only one processor, when the number of processors is greater
+than the number of quadrants, it will not result in significant speedup.
+
+1 processor, 64 quadrants:
+wall clock time = 32.280832
+total_dist == 1537718521166914560.000000
+
+1 processor, 128 quadrants:
+wall clock time = 16.144809
+total_dist == 768430198250296064.000000
+
+1 processor, 256 quadrants:
+wall clock time = 8.705391
+total_dist == 384072126799966208.000000
+
+2 processor, 64 quadrants:
+wall clock time = 16.621085
+total_dist == 1537718521166914560.000000
+
+2 processor, 128 quadrants:
+wall clock time = 8.640071
+total_dist == 768430198250295808.000000
+
+2 processor, 256 quadrants:
+wall clock time = 5.267514
+total_dist == 384072126799966208.000000
+
+4 processor, 64 quadrants:
+wall clock time = 8.623597
+total_dist == 1537718521166914048.000000
+
+4 processor, 128 quadrants:
+wall clock time = 4.681924
+total_dist == 768430198250295808.000000
+
+4 processor, 256 quadrants:
+wall clock time = 2.615660
+total_dist == 384072126799966144.000000
+
+8 processor, 64 quadrants:
+wall clock time = 4.517799
+total_dist == 1537718521166914560.000000
+
+8 processor, 128 quadrants:
+wall clock time = 2.616066
+total_dist == 768430198250295808.000000
+
+8 processor, 256 quadrants:
+wall clock time = 1.557466
+total_dist == 384072126799966144.000000
+
+16 processor, 64 quadrants:
+wall clock time = 2.611787
+total_dist == 1537718521166914304.000000
+
+16 processor, 128 quadrants:
+wall clock time = 1.485128
+total_dist == 768430198250295808.000000
+
+16 processor, 256 quadrants:
+wall clock time = 0.826226
+total_dist == 384072126799966144.000000
+
+32 processor, 64 quadrants:
+wall clock time = 1.221493
+total_dist == 1537718521166914048.000000
+
+32 processor, 128 quadrants:
+wall clock time = 0.875294
+total_dist == 768430198250295808.000000
+
+32 processor, 256 quadrants:
+wall clock time = 0.527167
+total_dist == 384072126799966080.000000
+
+64 processor, 64 quadrants:
+wall clock time = 1.010865
+total_dist == 1537718521166914304.000000
+
+64 processor, 128 quadrants:
+wall clock time = 0.558770
+total_dist == 768430198250295808.000000
+
+64 processor, 256 quadrants:
+wall clock time = 0.312252
+total_dist == 384072126799966080.000000
+
+128 processor, 64 quadrants:
+wall clock time = 0.725308
+total_dist == 1537718521166914304.000000
+
+128 processor, 128 quadrants:
+wall clock time = 0.420943
+total_dist == 768430198250295808.000000
+
+128 processor, 256 quadrants:
+wall clock time = 0.205136
+total_dist == 384072126799966144.000000
